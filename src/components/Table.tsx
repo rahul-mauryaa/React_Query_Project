@@ -188,7 +188,7 @@ const TableData: React.FC<{ data: FetchData[] | undefined }> = ({ data }) => {
   const handleDelete = () => {
     // const deleteId: any[] = [];
     if (selectedRowsData) {
-      selectedRowsData.forEach((item, i) => {
+      selectedRowsData.forEach((item, _) => {
         // setAllDeleteId(item.id);
         deleteUsers(parseInt(item.id));
         // console.log(`id >>>`, item.id);

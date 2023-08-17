@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import TableData from "../components/Table";
 import { useFetchUsersQuery } from "../features/data-slice";
 

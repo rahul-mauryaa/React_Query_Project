@@ -1,4 +1,3 @@
-import React from "react";
 import Display from "./pages/Display";
 import { Routes, Route } from "react-router-dom";
 import AddForm from "./pages/AddForm";

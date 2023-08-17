@@ -19,21 +19,21 @@ const AddForm: React.FC = () => {
   const [createUsers] = useCreateUsersMutation();
   const formRef = React.useRef<FormInstance>(null);
 
-  const onGenderChange = (value: string) => {
-    switch (value) {
-      case "male":
-        formRef.current?.setFieldsValue({ note: "Hi, man!" });
-        break;
-      case "female":
-        formRef.current?.setFieldsValue({ note: "Hi, lady!" });
-        break;
-      case "other":
-        formRef.current?.setFieldsValue({ note: "Hi there!" });
-        break;
-      default:
-        break;
-    }
-  };
+  // const onGenderChange = (value: string) => {
+  //   switch (value) {
+  //     case "male":
+  //       formRef.current?.setFieldsValue({ note: "Hi, man!" });
+  //       break;
+  //     case "female":
+  //       formRef.current?.setFieldsValue({ note: "Hi, lady!" });
+  //       break;
+  //     case "other":
+  //       formRef.current?.setFieldsValue({ note: "Hi there!" });
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  // };
 
   const onFinish = (values: any) => {
     createUsers(values);

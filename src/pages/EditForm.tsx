@@ -30,25 +30,25 @@ const EditForm: React.FC = () => {
   const [updateUsers] = useUpdateUsersMutation();
   const { data } = useFetchUsersByIdQuery(parseInt(id!));
 
-  const [defaultDate, setDefaultDate] = useState<any>(new Date(Date.now()));
+  const [defaultDate] = useState<any>(new Date(Date.now()));
 
   //   var date = new Date(data.createdAt);
   //   console.log(typeof data.createdAt, "dataaaaaaaaa");
-  const onGenderChange = (value: string) => {
-    switch (value) {
-      case "male":
-        formRef.current?.setFieldsValue({ note: "Hi, man!" });
-        break;
-      case "female":
-        formRef.current?.setFieldsValue({ note: "Hi, lady!" });
-        break;
-      case "other":
-        formRef.current?.setFieldsValue({ note: "Hi there!" });
-        break;
-      default:
-        break;
-    }
-  };
+  //   const onGenderChange = (value: string) => {
+  //     switch (value) {
+  //       case "male":
+  //         formRef.current?.setFieldsValue({ note: "Hi, man!" });
+  //         break;
+  //       case "female":
+  //         formRef.current?.setFieldsValue({ note: "Hi, lady!" });
+  //         break;
+  //       case "other":
+  //         formRef.current?.setFieldsValue({ note: "Hi there!" });
+  //         break;
+  //       default:
+  //         break;
+  //     }
+  //   };
 
   const onFinish = (values: any) => {
     // console.log(values, "valuesssssssss");
