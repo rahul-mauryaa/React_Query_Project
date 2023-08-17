@@ -15,22 +15,52 @@ export const dataSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "https://64dc793ae64a8525a0f68ad0.mockapi.io/api",
   }),
+  tagTypes: ["getUsers", "getUserByID"],
   endpoints(builder) {
     return {
-      fetchData: builder.query<FetchData[], void>({
+      fetchUsers: builder.query<FetchData[], void>({
         query() {
           return `/users`;
         },
+        providesTags: ["getUsers"],
       }),
-      createPost: builder.mutation<FetchData[], void>({
+      fetchUsersById: builder.query<any, number>({
+        query(id) {
+          return `/users/${id}`;
+        },
+        providesTags: ["getUserByID"],
+      }),
+      createUsers: builder.mutation<FetchData[], void>({
         query: (data) => ({
           url: `/users`,
           method: "POST",
           body: data,
         }),
+        invalidatesTags: ["getUsers"],
+      }),
+      updateUsers: builder.mutation<FetchData[], string | any>({
+        query: ({ id, data }) => ({
+          url: `/users/${id}`,
+          method: "PUT",
+          body: data,
+        }),
+        invalidatesTags: ["getUsers"],
+      }),
+      deleteUsers: builder.mutation<FetchData[], number>({
+        query: (id) => ({
+          url: `/users/${id}`,
+          method: "DELETE",
+        }),
+        invalidatesTags: ["getUsers"],
       }),
     };
   },
 });
 
-export const { useFetchDataQuery, useCreatePostMutation } = dataSlice;
+export const {
+  useFetchUsersQuery,
+  useCreateUsersMutation,
+  useDeleteUsersMutation,
+  useFetchUsersByIdQuery,
+  useUpdateUsersMutation,
+} = dataSlice;

@@ -1,6 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 // import "./index.css";
+import {
+  // useDeleteUsersQuery,
+  // useLazyDeleteUsersQuery,
+  useDeleteUsersMutation,
+} from "../features/data-slice";
 import {
   Divider,
   Radio,
@@ -91,20 +96,6 @@ interface DataType {
 
 // rowSelection object indicates the need for row selection
 
-const rowSelection = {
-  onChange: (selectedRowKeys: React.Key[], selectedRows: DataType[]) => {
-    console.log(
-      `selectedRowKeys: ${selectedRowKeys}`,
-      "selectedRows: ",
-      selectedRows
-    );
-  },
-  getCheckboxProps: (record: DataType) => ({
-    disabled: record.name === "Disabled User", // Column configuration not to be checked
-    name: record.name,
-  }),
-};
-
 interface FetchData {
   createdAt: Date;
   name: string;
@@ -116,6 +107,27 @@ interface FetchData {
 }
 
 const TableData: React.FC<{ data: FetchData[] | undefined }> = ({ data }) => {
+  // const { isLoading } = useDeleteUsersQuery(1);
+  // const [deleteUsers] = useLazyDeleteUsersQuery();
+  const [deleteUsers] = useDeleteUsersMutation();
+  const [selectedRowsData, setSelectedRowData] = useState<FetchData[]>([]);
+  const [allDeleteId, setAllDeleteId] = useState([]);
+
+  const rowSelection = {
+    onChange: (selectedRowKeys: React.Key[], selectedRows: DataType[]) => {
+      setSelectedRowData(selectedRows);
+      console.log(
+        `selectedRowKeys: ${selectedRowKeys}`,
+        "selectedRows: ",
+        selectedRows
+      );
+    },
+    getCheckboxProps: (record: DataType) => ({
+      disabled: record.name === "Disabled User", // Column configuration not to be checked
+      name: record.name,
+    }),
+  };
+
   const [selectionType, setSelectionType] = useState<"checkbox" | "radio">(
     "checkbox"
   );
@@ -171,6 +183,20 @@ const TableData: React.FC<{ data: FetchData[] | undefined }> = ({ data }) => {
   } as unknown as any;
 
   const handleClick = () => navigate("/add");
+  const handleEditPage = () => navigate(`/edit/${selectedRowsData[0].id}`);
+
+  const handleDelete = () => {
+    // const deleteId: any[] = [];
+    if (selectedRowsData) {
+      selectedRowsData.forEach((item, i) => {
+        // setAllDeleteId(item.id);
+        deleteUsers(parseInt(item.id));
+        // console.log(`id >>>`, item.id);
+      });
+    }
+    // deleteId.forEach((id) => setAllDeleteId(id));
+  };
+
   return (
     <div>
       <div style={{ float: "right" }}>
@@ -190,7 +216,28 @@ const TableData: React.FC<{ data: FetchData[] | undefined }> = ({ data }) => {
       </Radio.Group>
 
       <Divider />
-
+      <div style={{ float: "left", height: 50 }}>
+        {selectedRowsData.length > 0 && (
+          <>
+            <Button
+              type="primary"
+              size={"small"}
+              onClick={() => handleDelete()}
+            >
+              DeleteAll
+            </Button>{" "}
+          </>
+        )}
+        {selectedRowsData.length === 1 && (
+          <Button
+            type="primary"
+            size={"small"}
+            onClick={() => handleEditPage()}
+          >
+            Update
+          </Button>
+        )}
+      </div>
       {data && (
         <Table
           columns={columns}

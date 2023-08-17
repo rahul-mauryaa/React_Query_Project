@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Form, Input, Select, DatePicker } from "antd";
 import type { FormInstance } from "antd/es/form";
-import { useCreateUsersMutation } from "../features/data-slice";
+import { useParams } from "react-router-dom";
+import moment from "moment";
+import dayjs from "dayjs";
+
+import {
+  useFetchUsersByIdQuery,
+  useUpdateUsersMutation,
+} from "../features/data-slice";
 import { useNavigate } from "react-router-dom";
 const { Option } = Select;
 
@@ -14,11 +21,19 @@ const tailLayout = {
   wrapperCol: { offset: 8, span: 16 },
 };
 
-const AddForm: React.FC = () => {
+const EditForm: React.FC = () => {
   const navigate = useNavigate();
-  const [createUsers] = useCreateUsersMutation();
   const formRef = React.useRef<FormInstance>(null);
+  const params = useParams();
 
+  const id = params && params.id;
+  const [updateUsers] = useUpdateUsersMutation();
+  const { data } = useFetchUsersByIdQuery(parseInt(id!));
+
+  const [defaultDate, setDefaultDate] = useState<any>(new Date(Date.now()));
+
+  //   var date = new Date(data.createdAt);
+  //   console.log(typeof data.createdAt, "dataaaaaaaaa");
   const onGenderChange = (value: string) => {
     switch (value) {
       case "male":
@@ -36,18 +51,47 @@ const AddForm: React.FC = () => {
   };
 
   const onFinish = (values: any) => {
-    createUsers(values);
+    // console.log(values, "valuesssssssss");
     formRef.current?.resetFields();
     navigate("/");
+    updateUsers({ id, data: values });
   };
 
   const onReset = () => {
     formRef.current?.resetFields();
   };
+  //   const handleDOP = (date: any, dateString: any) => {
+  //     formRef.current?.setFieldsValue({
+  //       date: dateString,
+  //     });
+  //   };
+
+  useEffect(() => {
+    if (data) {
+      // console.log(new Date(data.createdAt));
+
+      //   console.log(`is being calleld`);
+
+      //   setDefaultDate(moment(data.createdAt).format("YYYY-MM-DD"));
+
+      formRef.current?.setFieldsValue({
+        id: data.id,
+        name: data.name,
+        avatar: data.avatar,
+        gender: data.gender,
+        phone: data.phone,
+        address: data.address,
+        createdAt: dayjs(moment(data.createdAt).format("YYYY/MM/DD")),
+        // date: moment(data && data.createdAt.slice(0, 10), "YYYY-MM-DD"),
+      });
+    }
+  }, [data]);
 
   //   const onFill = () => {
   //     formRef.current?.setFieldsValue({ note: "Hello world!", gender: "male" });
   //   };
+
+  console.log(defaultDate);
 
   return (
     <Form
@@ -113,8 +157,8 @@ const AddForm: React.FC = () => {
       </Form.Item>
       <Form.Item {...tailLayout}>
         <Button type="primary" htmlType="submit">
-          Submit
-        </Button>
+          Update
+        </Button>{" "}
         <Button htmlType="button" onClick={onReset}>
           Reset
         </Button>
@@ -126,7 +170,7 @@ const AddForm: React.FC = () => {
   );
 };
 
-export default AddForm;
+export default EditForm;
 // #components-form-demo-control-ref .ant-btn {
 //   margin-right: 8px;
 // }

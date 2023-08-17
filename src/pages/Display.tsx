@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import TableData from "../components/Table";
-import { useFetchDataQuery } from "../features/data-slice";
+import { useFetchUsersQuery } from "../features/data-slice";
+
+import { Space, Spin } from "antd";
 
 // interface FetchData {
 //   createdAt: Date;
@@ -13,8 +15,31 @@ import { useFetchDataQuery } from "../features/data-slice";
 // }
 
 const Display = () => {
-  const { data } = useFetchDataQuery();
-  console.log(data, "dataaata");
+  const { data, isLoading, isFetching } = useFetchUsersQuery(undefined, {
+    // pollingInterval: 5000,
+  });
+
+  if (isLoading || isFetching) {
+    return (
+      <Space
+        direction="vertical"
+        style={{
+          marginTop: "100px",
+          height: "100%",
+          width: "100%",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Space>
+          <Spin tip="Loading" size="large">
+            <div className="content" />
+          </Spin>
+        </Space>{" "}
+      </Space>
+    );
+  }
+
   return (
     <div
       style={{
