@@ -64,7 +64,7 @@ const AddForm: React.FC = () => {
         </Select>
       </Form.Item>
       <Form.Item name="phone" label="Phone" rules={[{ required: true }]}>
-        <Input />
+        <Input type="number" />
       </Form.Item>
       <Form.Item name="address" label="Address" rules={[{ required: true }]}>
         <Input />

@@ -4,7 +4,7 @@ const Header: FC = () => {
   return (
     <>
       <div style={{ textAlign: "center" }}>
-        <h1>React Query Crud</h1>
+        <h2>React Query Crud</h2>
       </div>
     </>
   );
