@@ -19,22 +19,6 @@ const AddForm: React.FC = () => {
   const [createUsers] = useCreateUsersMutation();
   const formRef = React.useRef<FormInstance>(null);
 
-  // const onGenderChange = (value: string) => {
-  //   switch (value) {
-  //     case "male":
-  //       formRef.current?.setFieldsValue({ note: "Hi, man!" });
-  //       break;
-  //     case "female":
-  //       formRef.current?.setFieldsValue({ note: "Hi, lady!" });
-  //       break;
-  //     case "other":
-  //       formRef.current?.setFieldsValue({ note: "Hi there!" });
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  // };
-
   const onFinish = (values: any) => {
     createUsers(values);
     formRef.current?.resetFields();
@@ -44,10 +28,6 @@ const AddForm: React.FC = () => {
   const onReset = () => {
     formRef.current?.resetFields();
   };
-
-  //   const onFill = () => {
-  //     formRef.current?.setFieldsValue({ note: "Hello world!", gender: "male" });
-  //   };
 
   return (
     <Form
@@ -98,19 +78,7 @@ const AddForm: React.FC = () => {
         shouldUpdate={(prevValues, currentValues) =>
           prevValues.gender !== currentValues.gender
         }
-      >
-        {({ getFieldValue }) =>
-          getFieldValue("gender") === "other" ? (
-            <Form.Item
-              name="customizeGender"
-              label="Customize Gender"
-              rules={[{ required: true }]}
-            >
-              <Input />
-            </Form.Item>
-          ) : null
-        }
-      </Form.Item>
+      ></Form.Item>
       <Form.Item {...tailLayout}>
         <Button type="primary" htmlType="submit">
           Submit

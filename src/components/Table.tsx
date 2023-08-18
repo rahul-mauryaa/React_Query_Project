@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import "./index.css";
-import {
-  // useDeleteUsersQuery,
-  // useLazyDeleteUsersQuery,
-  useDeleteUsersMutation,
-} from "../features/data-slice";
+
+import { useDeleteUsersMutation } from "../features/data-slice";
 import {
   Divider,
   Radio,
@@ -14,7 +10,6 @@ import {
   TableProps,
   Button,
 } from "antd";
-// import type { ColumnsType } from "antd/es/table";
 
 interface DataType {
   key: React.Key;
@@ -26,76 +21,6 @@ interface DataType {
   phone: string;
   address: string;
 }
-
-// const columns: ColumnsType<DataType> = [
-//   {
-//     title: "createdAt",
-//     dataIndex: "createdAt",
-//     key: "createdAt",
-//   },
-//   {
-//     title: "Name",
-//     dataIndex: "name",
-//     key: "name",
-//     render: (text: string) => <a>{text}</a>,
-//   },
-//   {
-//     title: "Id",
-//     dataIndex: "id",
-//     key: "name",
-//     render: (text: string) => <a>{text}</a>,
-//   },
-//   {
-//     title: "Avatar",
-//     dataIndex: "avatar",
-//     key: "name",
-//   },
-//   {
-//     title: "gender",
-//     dataIndex: "gender",
-//     key: "name",
-//   },
-//   {
-//     title: "phone",
-//     dataIndex: "phone",
-//     key: "name",
-//   },
-//   {
-//     title: "Address",
-//     dataIndex: "address",
-//     key: "name",
-//   },
-// ];
-
-// const data: DataType[] = [
-//   {
-//     key: "1",
-//     name: "John Brown",
-//     age: 32,
-//     address: "New York No. 1 Lake Park",
-//   },
-//   {
-//     key: "2",
-//     name: "Jim Green",
-//     age: 42,
-//     address: "London No. 1 Lake Park",
-//   },
-//   {
-//     key: "3",
-//     name: "Joe Black",
-//     age: 32,
-//     address: "Sydney No. 1 Lake Park",
-//   },
-//   {
-//     key: "4",
-//     name: "Disabled User",
-//     age: 99,
-//     address: "Sydney No. 1 Lake Park",
-//   },
-// ];
-
-// rowSelection object indicates the need for row selection
-
 interface FetchData {
   createdAt: Date;
   name: string;
@@ -107,8 +32,6 @@ interface FetchData {
 }
 
 const TableData: React.FC<{ data: FetchData[] | undefined }> = ({ data }) => {
-  // const { isLoading } = useDeleteUsersQuery(1);
-  // const [deleteUsers] = useLazyDeleteUsersQuery();
   const [deleteUsers] = useDeleteUsersMutation();
   const [selectedRowsData, setSelectedRowData] = useState<FetchData[]>([]);
   const [allDeleteId, setAllDeleteId] = useState([]);
