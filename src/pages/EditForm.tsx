@@ -32,26 +32,7 @@ const EditForm: React.FC = () => {
 
   const [defaultDate] = useState<any>(new Date(Date.now()));
 
-  //   var date = new Date(data.createdAt);
-  //   console.log(typeof data.createdAt, "dataaaaaaaaa");
-  //   const onGenderChange = (value: string) => {
-  //     switch (value) {
-  //       case "male":
-  //         formRef.current?.setFieldsValue({ note: "Hi, man!" });
-  //         break;
-  //       case "female":
-  //         formRef.current?.setFieldsValue({ note: "Hi, lady!" });
-  //         break;
-  //       case "other":
-  //         formRef.current?.setFieldsValue({ note: "Hi there!" });
-  //         break;
-  //       default:
-  //         break;
-  //     }
-  //   };
-
   const onFinish = (values: any) => {
-    // console.log(values, "valuesssssssss");
     formRef.current?.resetFields();
     navigate("/");
     updateUsers({ id, data: values });
@@ -60,20 +41,9 @@ const EditForm: React.FC = () => {
   const onBack = () => {
     navigate("/");
   };
-  //   const handleDOP = (date: any, dateString: any) => {
-  //     formRef.current?.setFieldsValue({
-  //       date: dateString,
-  //     });
-  //   };
 
   useEffect(() => {
     if (data) {
-      // console.log(new Date(data.createdAt));
-
-      //   console.log(`is being calleld`);
-
-      //   setDefaultDate(moment(data.createdAt).format("YYYY-MM-DD"));
-
       formRef.current?.setFieldsValue({
         id: data.id,
         name: data.name,
@@ -86,10 +56,6 @@ const EditForm: React.FC = () => {
       });
     }
   }, [data]);
-
-  //   const onFill = () => {
-  //     formRef.current?.setFieldsValue({ note: "Hello world!", gender: "male" });
-  //   };
 
   console.log(defaultDate);
 
@@ -125,17 +91,24 @@ const EditForm: React.FC = () => {
           <Input />
         </Form.Item>
         <Form.Item name="gender" label="Gender" rules={[{ required: true }]}>
-          <Select
-            placeholder="Select a option and change input text above"
-            allowClear
-          >
+          <Select placeholder="Select gender" allowClear>
             <Option value="male">male</Option>
             <Option value="female">female</Option>
             <Option value="other">other</Option>
           </Select>
         </Form.Item>
-        <Form.Item name="phone" label="Phone" rules={[{ required: true }]}>
-          <Input />
+        <Form.Item
+          name="phone"
+          label="Phone"
+          rules={[
+            { required: true },
+            {
+              min: 10,
+              max: 10,
+            },
+          ]}
+        >
+          <Input type="number" />
         </Form.Item>
         <Form.Item name="address" label="Address" rules={[{ required: true }]}>
           <Input />
@@ -149,19 +122,7 @@ const EditForm: React.FC = () => {
           shouldUpdate={(prevValues, currentValues) =>
             prevValues.gender !== currentValues.gender
           }
-        >
-          {({ getFieldValue }) =>
-            getFieldValue("gender") === "other" ? (
-              <Form.Item
-                name="customizeGender"
-                label="Customize Gender"
-                rules={[{ required: true }]}
-              >
-                <Input />
-              </Form.Item>
-            ) : null
-          }
-        </Form.Item>
+        ></Form.Item>
         <Form.Item {...tailLayout}>
           <Button type="primary" htmlType="submit">
             Update
@@ -169,9 +130,6 @@ const EditForm: React.FC = () => {
           <Button htmlType="button" onClick={onBack}>
             Back
           </Button>
-          {/* <Button type="link" htmlType="button" onClick={onFill}>
-          Fill form
-        </Button> */}
         </Form.Item>
       </Form>
     </div>
@@ -179,6 +137,3 @@ const EditForm: React.FC = () => {
 };
 
 export default EditForm;
-// #components-form-demo-control-ref .ant-btn {
-//   margin-right: 8px;
-// }

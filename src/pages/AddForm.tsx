@@ -71,16 +71,23 @@ const AddForm: React.FC = () => {
             <Input />
           </Form.Item>
           <Form.Item name="gender" label="Gender" rules={[{ required: true }]}>
-            <Select
-              placeholder="Select a option and change input text above"
-              allowClear
-            >
+            <Select placeholder="Select gender" allowClear>
               <Option value="male">male</Option>
               <Option value="female">female</Option>
               <Option value="other">other</Option>
             </Select>
           </Form.Item>
-          <Form.Item name="phone" label="Phone" rules={[{ required: true }]}>
+          <Form.Item
+            name="phone"
+            label="Phone"
+            rules={[
+              { required: true },
+              {
+                min: 10,
+                max: 10,
+              },
+            ]}
+          >
             <Input type="number" />
           </Form.Item>
           <Form.Item
