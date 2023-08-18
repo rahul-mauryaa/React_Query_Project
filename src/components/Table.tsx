@@ -151,7 +151,7 @@ const TableData: React.FC<{ data: FetchData[] | undefined }> = ({ data }) => {
               size={"small"}
               onClick={() => handleDelete()}
             >
-              DeleteAll
+              {selectedRowsData.length === 1 ? `Delete` : `DeleteAll`}
             </Button>{" "}
           </>
         )}

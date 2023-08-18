@@ -30,67 +30,90 @@ const AddForm: React.FC = () => {
   };
 
   return (
-    <Form
-      {...layout}
-      ref={formRef}
-      name="control-ref"
-      onFinish={onFinish}
-      style={{ maxWidth: 600 }}
+    <div
+      style={{
+        width: "100%",
+        height: "70vh",
+      }}
     >
-      <Form.Item name="name" label="Name" rules={[{ required: true }]}>
-        <Input />
-      </Form.Item>
-      <Form.Item
-        name="avatar"
-        label="Avatar"
-        rules={[
-          { required: true, message: "Please input a URL!" },
-          {
-            type: "url",
-            message: "Please enter a valid URL!",
-          },
-        ]}
+      <div
+        style={{
+          height: "auto",
+          width: "auto",
+          display: "flex",
+          justifyContent: "center",
+        }}
       >
-        <Input />
-      </Form.Item>
-      <Form.Item name="gender" label="Gender" rules={[{ required: true }]}>
-        <Select
-          placeholder="Select a option and change input text above"
-          allowClear
+        <Form
+          {...layout}
+          ref={formRef}
+          name="control-ref"
+          onFinish={onFinish}
+          style={{
+            width: 800,
+          }}
         >
-          <Option value="male">male</Option>
-          <Option value="female">female</Option>
-          <Option value="other">other</Option>
-        </Select>
-      </Form.Item>
-      <Form.Item name="phone" label="Phone" rules={[{ required: true }]}>
-        <Input type="number" />
-      </Form.Item>
-      <Form.Item name="address" label="Address" rules={[{ required: true }]}>
-        <Input />
-      </Form.Item>
-      <Form.Item name="createdAt" label="Date" rules={[{ required: true }]}>
-        <DatePicker />
-      </Form.Item>
+          <h2 style={{ textAlign: "center" }}>Add Data</h2>
+          <Form.Item name="name" label="Name" rules={[{ required: true }]}>
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="avatar"
+            label="Avatar"
+            rules={[
+              { required: true, message: "Please input a URL!" },
+              {
+                type: "url",
+                message: "Please enter a valid URL!",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item name="gender" label="Gender" rules={[{ required: true }]}>
+            <Select
+              placeholder="Select a option and change input text above"
+              allowClear
+            >
+              <Option value="male">male</Option>
+              <Option value="female">female</Option>
+              <Option value="other">other</Option>
+            </Select>
+          </Form.Item>
+          <Form.Item name="phone" label="Phone" rules={[{ required: true }]}>
+            <Input type="number" />
+          </Form.Item>
+          <Form.Item
+            name="address"
+            label="Address"
+            rules={[{ required: true }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item name="createdAt" label="Date" rules={[{ required: true }]}>
+            <DatePicker />
+          </Form.Item>
 
-      <Form.Item
-        noStyle
-        shouldUpdate={(prevValues, currentValues) =>
-          prevValues.gender !== currentValues.gender
-        }
-      ></Form.Item>
-      <Form.Item {...tailLayout}>
-        <Button type="primary" htmlType="submit">
-          Submit
-        </Button>
-        <Button htmlType="button" onClick={onReset}>
-          Reset
-        </Button>
-        {/* <Button type="link" htmlType="button" onClick={onFill}>
+          <Form.Item
+            noStyle
+            shouldUpdate={(prevValues, currentValues) =>
+              prevValues.gender !== currentValues.gender
+            }
+          ></Form.Item>
+          <Form.Item {...tailLayout}>
+            <Button type="primary" htmlType="submit">
+              Submit
+            </Button>{" "}
+            <Button htmlType="button" onClick={onReset}>
+              Reset
+            </Button>
+            {/* <Button type="link" htmlType="button" onClick={onFill}>
           Fill form
         </Button> */}
-      </Form.Item>
-    </Form>
+          </Form.Item>
+        </Form>
+      </div>
+    </div>
   );
 };
 
