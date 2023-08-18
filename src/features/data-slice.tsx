@@ -1,4 +1,8 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import {
+  FetchBaseQueryMeta,
+  createApi,
+  fetchBaseQuery,
+} from "@reduxjs/toolkit/query/react";
 
 interface FetchData {
   createdAt: Date;
@@ -19,7 +23,7 @@ export const dataSlice = createApi({
   endpoints(builder) {
     return {
       fetchUsers: builder.query<FetchData[], void>({
-        query() {
+        query: () => {
           return `/users`;
         },
         providesTags: ["getUsers"],
@@ -36,6 +40,7 @@ export const dataSlice = createApi({
           method: "POST",
           body: data,
         }),
+
         invalidatesTags: ["getUsers"],
       }),
       updateUsers: builder.mutation<FetchData[], string | any>({

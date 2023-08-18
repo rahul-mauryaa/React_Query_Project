@@ -19,6 +19,8 @@ const AddForm: React.FC = () => {
   const [createUsers] = useCreateUsersMutation();
   const formRef = React.useRef<FormInstance>(null);
 
+  console.log(createUsers, "createusers");
+
   const onFinish = (values: any) => {
     createUsers(values);
     formRef.current?.resetFields();
@@ -53,7 +55,7 @@ const AddForm: React.FC = () => {
             width: 800,
           }}
         >
-          <h2 style={{ textAlign: "center" }}>Add Data</h2>
+          <h2 style={{ textAlign: "center" }}>Add Form</h2>
           <Form.Item name="name" label="Name" rules={[{ required: true }]}>
             <Input />
           </Form.Item>

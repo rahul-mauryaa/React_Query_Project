@@ -17,6 +17,7 @@ const Display = () => {
   const { data, isLoading, isFetching } = useFetchUsersQuery(undefined, {
     // pollingInterval: 5000,
   });
+  console.log(data, "Alll_data");
 
   if (isLoading || isFetching) {
     return (
