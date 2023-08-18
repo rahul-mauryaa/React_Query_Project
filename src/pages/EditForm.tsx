@@ -57,8 +57,8 @@ const EditForm: React.FC = () => {
     updateUsers({ id, data: values });
   };
 
-  const onReset = () => {
-    formRef.current?.resetFields();
+  const onBack = () => {
+    navigate("/");
   };
   //   const handleDOP = (date: any, dateString: any) => {
   //     formRef.current?.setFieldsValue({
@@ -166,8 +166,8 @@ const EditForm: React.FC = () => {
           <Button type="primary" htmlType="submit">
             Update
           </Button>{" "}
-          <Button htmlType="button" onClick={onReset}>
-            Reset
+          <Button htmlType="button" onClick={onBack}>
+            Back
           </Button>
           {/* <Button type="link" htmlType="button" onClick={onFill}>
           Fill form

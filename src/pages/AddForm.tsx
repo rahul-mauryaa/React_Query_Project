@@ -19,8 +19,6 @@ const AddForm: React.FC = () => {
   const [createUsers] = useCreateUsersMutation();
   const formRef = React.useRef<FormInstance>(null);
 
-  console.log(createUsers, "createusers");
-
   const onFinish = (values: any) => {
     createUsers(values);
     formRef.current?.resetFields();
