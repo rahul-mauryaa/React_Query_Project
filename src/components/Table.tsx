@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useDeleteUsersMutation } from "../features/data-slice";
+import moment from "moment";
 import {
   Divider,
   Radio,
@@ -95,9 +96,14 @@ const TableData: React.FC<{ data: FetchData[] | undefined }> = ({ data }) => {
       key: "Address",
     },
     {
-      title: "createdAt",
+      title: "Dob",
       dataIndex: "createdAt",
       key: "createdAt",
+      render: (date) => {
+        const currentDate = moment(date);
+        const formattedDate = currentDate.format("MMMM DD, YYYY");
+        return <>{formattedDate}</>;
+      },
     },
   ]);
 
