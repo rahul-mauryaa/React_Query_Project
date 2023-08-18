@@ -112,7 +112,8 @@ const TableData: React.FC<{ data: FetchData[] | undefined }> = ({ data }) => {
   const [deleteUsers] = useDeleteUsersMutation();
   const [selectedRowsData, setSelectedRowData] = useState<FetchData[]>([]);
   const [allDeleteId, setAllDeleteId] = useState([]);
-
+  const [page, setPage] = useState<number>(1);
+  const [pageSize, setPageSize] = useState<number>(5);
   const rowSelection = {
     onChange: (selectedRowKeys: React.Key[], selectedRows: DataType[]) => {
       setSelectedRowData(selectedRows);
@@ -137,7 +138,7 @@ const TableData: React.FC<{ data: FetchData[] | undefined }> = ({ data }) => {
     {
       title: "Id",
       dataIndex: "id",
-      key: "name",
+      key: "id",
       render: (text: string) => <a>{text}</a>,
     },
     {
@@ -158,7 +159,7 @@ const TableData: React.FC<{ data: FetchData[] | undefined }> = ({ data }) => {
     {
       title: "gender",
       dataIndex: "gender",
-      key: "name",
+      key: "gender",
     },
     {
       title: "phone",
@@ -186,15 +187,12 @@ const TableData: React.FC<{ data: FetchData[] | undefined }> = ({ data }) => {
   const handleEditPage = () => navigate(`/edit/${selectedRowsData[0].id}`);
 
   const handleDelete = () => {
-    // const deleteId: any[] = [];
-    if (selectedRowsData) {
-      selectedRowsData.forEach((item, _) => {
-        // setAllDeleteId(item.id);
-        deleteUsers(parseInt(item.id));
-        // console.log(`id >>>`, item.id);
+    console.log(selectedRowsData.length, "selectedRowdata");
+    if (selectedRowsData.length > 0) {
+      selectedRowsData.map((item, _) => {
+        deleteUsers(parseInt(item?.id));
       });
     }
-    // deleteId.forEach((id) => setAllDeleteId(id));
   };
 
   return (
@@ -245,6 +243,16 @@ const TableData: React.FC<{ data: FetchData[] | undefined }> = ({ data }) => {
           rowKey={({ id }) => id}
           size="small"
           rowSelection={_rowSelection}
+          pagination={{
+            current: page,
+            defaultPageSize: pageSize,
+            pageSize: pageSize,
+            onChange: (page, pageSize) => {
+              console.log(`page===>`, page, `pagesize===>`, pageSize);
+              setPage(page);
+              setPageSize(pageSize);
+            },
+          }}
           // rowSelection={{
           //   type: selectionType,
           //   ...rowSelection,
